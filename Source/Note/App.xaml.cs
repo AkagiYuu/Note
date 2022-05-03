@@ -32,7 +32,9 @@ namespace Note
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+            // Force to use dark theme, replaced by user config later
+            //RequestedTheme = ApplicationTheme.Dark;
+            InitializeComponent();
         }
 
         /// <summary>

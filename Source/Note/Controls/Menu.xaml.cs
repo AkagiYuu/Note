@@ -48,17 +48,17 @@ namespace Note.Controls
 
         private void OpenFile(object sender, RoutedEventArgs e)
         {
-            FileManager.Open(App.Main.Tabs);
+            FileManager.Open(App.Main.Tabs.SelectedTab);
         }
 
         private void SaveFile(object sender, RoutedEventArgs e)
         {
-            FileManager.Save(App.Main.Tabs);
+            FileManager.Save(App.Main.Tabs.SelectedTab);
         }
 
         private void SaveFileAs(object sender, RoutedEventArgs e)
         {
-            FileManager.SaveAs(App.Main.Tabs);
+            FileManager.SaveAs(App.Main.Tabs.SelectedTab);
         }
 
         private void Exit(object sender, RoutedEventArgs e)

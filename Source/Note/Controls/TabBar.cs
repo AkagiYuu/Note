@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Note.Utilities;
+using Note.Extensions;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -18,6 +19,7 @@ namespace Note.Controls
 {
     public sealed class TabBar : TabView
     {
+
         public TabViewItem SelectedTab
         {
             get => (TabViewItem)SelectedItem;
@@ -39,15 +41,14 @@ namespace Note.Controls
             set => TextEditor.TextDocument.SetText(TextSetOptions.None, value);
         }
 
-        public Infomation FileInfomation
-        {
-            get => new(SelectedTab.Name, SelectedTab.Header.ToString());
-            set => (SelectedTab.Name, SelectedTab.Header) = value;
-        }
+        //public FileInfomation Info
+        //{
+        //    get => new(SelectedTab.Name, SelectedTab.Header.ToString());
+        //    set => (SelectedTab.Name, SelectedTab.Header) = value;
+        //}
 
         public TabBar()
         {
-            //this.DefaultStyleKey = typeof(TabBar);
             NewTab();
 
             AddTabButtonClick += (sender, _) => ((TabBar)sender).NewTab();

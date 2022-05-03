@@ -8,14 +8,16 @@ using Windows.Storage.Pickers;
 using System.Threading.Tasks;
 using Windows.Storage.Provider;
 using Note.Controls;
+using Microsoft.UI.Xaml.Controls;
+using Note.Extensions;
 
 namespace Note.Utilities
 {
-    public record Infomation(string Path, string Name);
+    //public record FileInfomation(string Path, string Name);
 
     internal static class FileManager
     {
-        public static async void Open(TabBar Tabs)
+        public static async void Open(TabViewItem Tab)
         {
             var Picker = new FileOpenPicker();
 
@@ -26,13 +28,14 @@ namespace Note.Utilities
 
             var file = await Picker.PickSingleFileAsync();
             if (file == null) return;
-            Tabs.FileInfomation = new Infomation(file.Path, file.Name);
+            //Tabs.Info = new FileInfomation(file.Path, file.Name);
+            Tab.SetFileInfo(file.Path, file.Name);
 
             var Text = await FileIO.ReadTextAsync(file);
-            Tabs.TextEditorContent = Text;
+            Tab.SetText(Text);
         }
 
-        public static async void SaveAs(TabBar Tabs)
+        public static async void SaveAs(TabViewItem Tab)
         {
             var Picker = new FileSavePicker();
 
@@ -46,31 +49,31 @@ namespace Note.Utilities
             if (file == null) return;
 
             // Prevent updates to the remote version of the file until we finish making changes
-            CachedFileManager.DeferUpdates(file);
+            // CachedFileManager.DeferUpdates(file);
 
 
-            await FileIO.WriteTextAsync(file, Tabs.TextEditorContent);
+            await FileIO.WriteTextAsync(file, Tab.GetText());
 
             // Let Windows know that we're finished changing the file so
             // the other app can update the remote version of the file.
             // Completing updates may require Windows to ask for user input.
-            var status = await CachedFileManager.CompleteUpdatesAsync(file);
+            // var status = await CachedFileManager.CompleteUpdatesAsync(file);
 
-            if (status != FileUpdateStatus.Complete) throw new IOException($"File {file.Name} couldn't be saved.");
-
-            Tabs.FileInfomation = new Infomation(file.Path, file.Name);
+            // if (status != FileUpdateStatus.Complete) throw new IOException($"File {file.Name} couldn't be saved.");
+            Tab.SetFileInfo(file.Path, file.Name);
         }
 
-        public static async void Save(TabBar Tabs)
+        public static async void Save(TabViewItem Tab)
         {
-            if (Tabs.FileInfomation.Path == String.Empty)
+            var FilePath = Tab.GetFilePath();
+            if (FilePath == string.Empty)
             {
-                SaveAs(Tabs);
+                SaveAs(Tab);
                 return;
             }
 
-            var file = await StorageFile.GetFileFromPathAsync(Tabs.FileInfomation.Path);
-            await FileIO.WriteTextAsync(file, Tabs.TextEditorContent);
+            var file = await StorageFile.GetFileFromPathAsync(FilePath);
+            await FileIO.WriteTextAsync(file, Tab.GetText());
         }
     }
 }
