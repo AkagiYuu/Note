@@ -1,15 +1,5 @@
-﻿using Microsoft.UI.Text;
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Documents;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Note.Utilities;
 using Note.Extensions;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -25,27 +15,6 @@ namespace Note.Controls
             get => (TabViewItem)SelectedItem;
             set => SelectedItem = value;
         }
-
-        public RichEditBox TextEditor
-        {
-            get => (RichEditBox)SelectedTab.Content;
-        }
-
-        public string TextEditorContent
-        {
-            get
-            {
-                TextEditor.TextDocument.GetText(TextGetOptions.None, out var result);
-                return result;
-            }
-            set => TextEditor.TextDocument.SetText(TextSetOptions.None, value);
-        }
-
-        //public FileInfomation Info
-        //{
-        //    get => new(SelectedTab.Name, SelectedTab.Header.ToString());
-        //    set => (SelectedTab.Name, SelectedTab.Header) = value;
-        //}
 
         public TabBar()
         {
@@ -78,6 +47,17 @@ namespace Note.Controls
         {
             TabItems.Remove(Tab);
             if (TabItems.Count == 0) Application.Current.Exit();
+        }
+
+        public int FindTab(string FilePath)
+        {
+            for (int i = 0; i < TabItems.Count; i++)
+            {
+                var Tab = (TabViewItem)TabItems[i];
+                if (Tab.GetFilePath() == FilePath) return i;
+            }
+
+            return -1;
         }
     }
 }

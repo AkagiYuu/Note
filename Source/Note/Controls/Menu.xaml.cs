@@ -1,17 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Note.Extensions;
 using Note.Utilities;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -28,27 +17,27 @@ namespace Note.Controls
 
         private void Undo(object sender, RoutedEventArgs e)
         {
-            App.Main.Tabs.TextEditor.TextDocument.Undo();
+            App.Main.Tabs.SelectedTab.Undo();
         }
 
         private void Cut(object sender, RoutedEventArgs e)
         {
-            App.Main.Tabs.TextEditor.TextDocument.Selection.Cut();
+            App.Main.Tabs.SelectedTab.Cut();
         }
 
         private void Copy(object sender, RoutedEventArgs e)
         {
-            App.Main.Tabs.TextEditor.TextDocument.Selection.Copy();
+            App.Main.Tabs.SelectedTab.Copy();
         }
 
         private void Paste(object sender, RoutedEventArgs e)
         {
-            App.Main.Tabs.TextEditor.TextDocument.Selection.Paste(0);
+            App.Main.Tabs.SelectedTab.Paste();
         }
 
         private void OpenFile(object sender, RoutedEventArgs e)
         {
-            FileManager.Open(App.Main.Tabs.SelectedTab);
+            FileManager.Open(App.Main.Tabs);
         }
 
         private void SaveFile(object sender, RoutedEventArgs e)

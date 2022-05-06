@@ -7,18 +7,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid RowDefinitions="Auto,Auto,*" Background="Transparent">
-        <Grid HorizontalAlignment="Stretch" Height="0.5" Name="AppTitleBar"/>
-        <Grid ColumnDefinitions="Auto,*">
-            <controls:Menu x:Name="_menu"/>
-            <controls:WindowCaptionButtons Grid.Column="1" VerticalAlignment="Stretch"/>
+    <Border BorderThickness="1" BorderBrush="#1b4a90">
+        <Grid RowDefinitions="Auto,Auto,*">
+            <Grid HorizontalAlignment="Stretch" Height="0.5" Name="FakeTitleBar"/>
+            <Grid ColumnDefinitions="Auto,*" 
+              PointerPressed="TitleBar_PointerPressed" 
+              PointerReleased="TitleBar_PointerReleased" 
+              PointerMoved="TitleBar_PointerMoved" 
+              Background="Transparent">
+                <controls:Menu x:Name="_menu"/>
+                <controls:WindowCaptionButtons Grid.Column="1" VerticalAlignment="Stretch"/>
+            </Grid>
+            <controls:TabBar x:Name="_tabs" Grid.Row="1" VerticalAlignment="Stretch">
+                <controls:TabBar.Resources>
+                    <SolidColorBrush x:Key="TabViewItemIconForeground" Color="#B1B1B1" />
+                    <SolidColorBrush x:Key="TabViewItemHeaderForeground" Color="#B1B1B1" />
+                </controls:TabBar.Resources>
+            </controls:TabBar>
         </Grid>
-        <controls:TabBar x:Name="_tabs" Grid.Row="1" Grid.ColumnSpan="2">
-            <controls:TabBar.Resources>
-                <SolidColorBrush x:Key="TabViewItemIconForeground" Color="#B1B1B1" />
-                <SolidColorBrush x:Key="TabViewItemHeaderForeground" Color="#B1B1B1" />
-            </controls:TabBar.Resources>
-        </controls:TabBar>
-    </Grid>
+    </Border>
 </Window>
 

@@ -1,33 +1,66 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using Note.Controls;
+using Note.Extensions;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using WinRT.Interop;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using System.Threading.Tasks;
-using Windows.Storage.Provider;
-using Note.Controls;
-using Microsoft.UI.Xaml.Controls;
-using Note.Extensions;
+using WinRT.Interop;
 
 namespace Note.Utilities
 {
     //public record FileInfomation(string Path, string Name);
 
-    internal static class FileManager
+    public static class FileManager
     {
-        public static async void Open(TabViewItem Tab)
+        private static readonly FileOpenPicker _fileOpenPicker;
+        private static readonly FileSavePicker _fileSavePicker;
+
+        static FileManager()
+        {
+            _fileOpenPicker = CreateFileOpenPicker();
+            _fileSavePicker = CreateFileSavePicker();
+        }
+
+
+        public static FileOpenPicker CreateFileOpenPicker()
         {
             var Picker = new FileOpenPicker();
 
             InitializeWithWindow.Initialize(Picker, MainWindow.Hwnd);
 
-            Picker.FileTypeFilter.Add(".txt");
             Picker.FileTypeFilter.Add("*");
+            Picker.FileTypeFilter.Add(".txt");
 
-            var file = await Picker.PickSingleFileAsync();
+            return Picker;
+        }
+
+        public static FileSavePicker CreateFileSavePicker()
+        {
+            var Picker = new FileSavePicker();
+
+            InitializeWithWindow.Initialize(Picker, MainWindow.Hwnd);
+
+            Picker.FileTypeChoices.Add("Plain Text", new List<string> { ".txt" });
+            Picker.FileTypeChoices.Add("All file", new List<string> { "." });
+
+            return Picker;
+        }
+
+        public static async void Open(TabBar Tabs)
+        {
+            var Tab = Tabs.SelectedTab;
+
+            var file = await _fileOpenPicker.PickSingleFileAsync();
             if (file == null) return;
+
+            var index = Tabs.FindTab(file.Path);
+
+            if (index != -1)
+            {
+                Tabs.SelectedIndex = index;
+                return;
+            }
             //Tabs.Info = new FileInfomation(file.Path, file.Name);
             Tab.SetFileInfo(file.Path, file.Name);
 
@@ -37,14 +70,7 @@ namespace Note.Utilities
 
         public static async void SaveAs(TabViewItem Tab)
         {
-            var Picker = new FileSavePicker();
-
-            InitializeWithWindow.Initialize(Picker, MainWindow.Hwnd);
-
-            Picker.FileTypeChoices.Add("Plain Text", new List<string> { ".txt" });
-            Picker.FileTypeChoices.Add("All file", new List<string> { "." });
-
-            var file = await Picker.PickSaveFileAsync();
+            var file = await _fileSavePicker.PickSaveFileAsync();
 
             if (file == null) return;
 
