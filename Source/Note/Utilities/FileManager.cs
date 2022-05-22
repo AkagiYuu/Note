@@ -1,53 +1,55 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.UI.Xaml.Controls;
 using Note.Controls;
 using Note.Extensions;
-using System;
-using System.Collections.Generic;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
 
-namespace Note.Utilities
+namespace Note.Utilities;
+
+//public record FileInfomation(string Path, string Name);
+
+public static class FileManager
 {
-    //public record FileInfomation(string Path, string Name);
+    private static readonly FileOpenPicker _fileOpenPicker;
+    private static readonly FileSavePicker _fileSavePicker;
 
-    public static class FileManager
+    static FileManager()
     {
-        private static readonly FileOpenPicker _fileOpenPicker;
-        private static readonly FileSavePicker _fileSavePicker;
-
-        static FileManager()
-        {
-            _fileOpenPicker = CreateFileOpenPicker();
-            _fileSavePicker = CreateFileSavePicker();
-        }
+        _fileOpenPicker = CreateFileOpenPicker();
+        _fileSavePicker = CreateFileSavePicker();
+    }
 
 
-        public static FileOpenPicker CreateFileOpenPicker()
-        {
-            var Picker = new FileOpenPicker();
+    public static FileOpenPicker CreateFileOpenPicker()
+    {
+        var Picker = new FileOpenPicker();
 
-            InitializeWithWindow.Initialize(Picker, MainWindow.Hwnd);
+        InitializeWithWindow.Initialize(Picker, MainWindow.Hwnd);
 
-            Picker.FileTypeFilter.Add("*");
-            Picker.FileTypeFilter.Add(".txt");
+        Picker.FileTypeFilter.Add("*");
+        Picker.FileTypeFilter.Add(".txt");
 
-            return Picker;
-        }
+        return Picker;
+    }
 
-        public static FileSavePicker CreateFileSavePicker()
-        {
-            var Picker = new FileSavePicker();
+    public static FileSavePicker CreateFileSavePicker()
+    {
+        var Picker = new FileSavePicker();
 
-            InitializeWithWindow.Initialize(Picker, MainWindow.Hwnd);
+        InitializeWithWindow.Initialize(Picker, MainWindow.Hwnd);
 
-            Picker.FileTypeChoices.Add("Plain Text", new List<string> { ".txt" });
-            Picker.FileTypeChoices.Add("All file", new List<string> { "." });
+        Picker.FileTypeChoices.Add("Plain Text", new List<string> { ".txt" });
+        Picker.FileTypeChoices.Add("All file", new List<string> { "." });
 
-            return Picker;
-        }
+        return Picker;
+    }
 
-        public static async void Open(TabBar Tabs)
+    public static async void Open(TabBar Tabs)
+    {
+        try
         {
             var Tab = Tabs.SelectedTab;
 
@@ -65,41 +67,48 @@ namespace Note.Utilities
             Tab.SetFileInfo(file.Path, file.Name);
 
             var Text = await FileIO.ReadTextAsync(file);
-            Tab.SetText(Text);
+            Tab.GetTextEditor().Text = Text;
         }
-
-        public static async void SaveAs(TabViewItem Tab)
+        catch (Exception e)
         {
-            var file = await _fileSavePicker.PickSaveFileAsync();
-
-            if (file == null) return;
-
-            // Prevent updates to the remote version of the file until we finish making changes
-            // CachedFileManager.DeferUpdates(file);
-
-
-            await FileIO.WriteTextAsync(file, Tab.GetText());
-
-            // Let Windows know that we're finished changing the file so
-            // the other app can update the remote version of the file.
-            // Completing updates may require Windows to ask for user input.
-            // var status = await CachedFileManager.CompleteUpdatesAsync(file);
-
-            // if (status != FileUpdateStatus.Complete) throw new IOException($"File {file.Name} couldn't be saved.");
-            Tab.SetFileInfo(file.Path, file.Name);
+            var Message = $"Can't open the file (Exception: {e.Message})";
+            Debug.DisplayDialog(Message, "Exeption");
         }
+    }
 
-        public static async void Save(TabViewItem Tab)
+    public static async void SaveAs(TabViewItem Tab)
+    {
+        var file = await _fileSavePicker.PickSaveFileAsync();
+
+        if (file == null) return;
+
+        // Prevent updates to the remote version of the file until we finish making changes
+        // CachedFileManager.DeferUpdates(file);
+
+        var TextEditor = Tab.GetTextEditor();
+        await FileIO.WriteTextAsync(file, TextEditor.Text);
+
+        // Let Windows know that we're finished changing the file so
+        // the other app can update the remote version of the file.
+        // Completing updates may require Windows to ask for user input.
+        // var status = await CachedFileManager.CompleteUpdatesAsync(file);
+
+        // if (status != FileUpdateStatus.Complete) throw new IOException($"File {file.Name} couldn't be saved.");
+        Tab.SetFileInfo(file.Path, file.Name);
+    }
+
+    public static async void Save(TabViewItem Tab)
+    {
+        var FilePath = Tab.GetFilePath();
+        if (FilePath == string.Empty)
         {
-            var FilePath = Tab.GetFilePath();
-            if (FilePath == string.Empty)
-            {
-                SaveAs(Tab);
-                return;
-            }
-
-            var file = await StorageFile.GetFileFromPathAsync(FilePath);
-            await FileIO.WriteTextAsync(file, Tab.GetText());
+            SaveAs(Tab);
+            return;
         }
+
+        var file = await StorageFile.GetFileFromPathAsync(FilePath);
+        var TextEditor = Tab.GetTextEditor();
+
+        await FileIO.WriteTextAsync(file, TextEditor.Text);
     }
 }

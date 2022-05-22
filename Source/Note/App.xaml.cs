@@ -10,6 +10,8 @@ namespace Note
     /// </summary>
     public partial class App : Application
     {
+        private MainWindow _main;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -26,14 +28,12 @@ namespace Note
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            _main = new();
+            _main = new MainWindow();
             _main.Activate();
+
+            MainWindow.Current = _main;
         }
-
-        private static MainWindow _main;
-
-        public static MainWindow Main { get => _main; }
     }
 }

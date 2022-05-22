@@ -122,6 +122,43 @@ namespace Note.Utilities
         public const int NoActive = 0x08000000;
     }
 
+    //public enum WindowStyles : uint
+    //{
+    //    //https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles
+    //    WS_OVERLAPPED = 0x0,
+    //    WS_POPUP = 0x80000000,
+    //    WS_MINIMIZE = 0x20000000,
+    //    WS_VISIBLE = 0x10000000,
+    //    WS_MAXIMIZE = 0x1000000,
+    //    WS_BORDER = 0x800000,
+    //    WS_CAPTION = 0xC00000,
+    //    WS_CHILD = 0x40000000,
+    //    WS_CHILDWINDOW = WS_CHILD,
+    //    WS_CLIPCHILDREN = 0x2000000,
+    //    WS_CLIPSIBLINGS = 0x4000000,
+    //    WS_DISABLED = 0x8000000,
+    //    WS_DLGFRAME = 0x400000,
+    //    WS_GROUP = 0x20000,
+    //    WS_SYSMENU = 0x80000,
+    //    WS_THICKFRAME = 0x40000,
+    //    WS_TABSTOP = 0x10000,
+    //    WS_MINIMIZEBOX = 0x20000,
+    //    WS_MAXIMIZEBOX = 0x10000,
+    //    WS_TILED = 0x0,
+    //    WS_SIZEBOX = 0x40000,
+    //    WS_EX_DLGMODALFRAME = 0x1,
+    //    WS_EX_NOPARENTNOTIFY = 0x4,
+    //    WS_EX_TOPMOST = 0x8,
+    //    WS_EX_TRANSPARENT = 0x20,
+    //    WS_EX_APPWINDOW = 0x40000,
+    //    WS_EX_LAYERED = 0x80000,
+    //    WS_EX_LAYOUTRTL = 0x400000,
+    //    WS_EX_COMPOSITED = 0x2000000,
+    //    WS_EX_NOACTIVATE = 0x8000000,
+    //    WS_OVERLAPPEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
+    //    WS_POPUPWINDOW = WS_POPUP | WS_BORDER | WS_SYSMENU,
+    //}
+
     public static class LayeredWindowFlag
     {
         /// <summary>
@@ -133,9 +170,8 @@ namespace Note.Utilities
         /// Use Alpha to determine the opacity of the layered window.
         /// </summary>
         public const uint Alpha = 0x00000002;
-
-        public const uint All = ColorCode | Alpha;
     }
+
     /// <summary>
     /// Note: this may effect performance
     /// </summary>

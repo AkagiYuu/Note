@@ -1,13 +1,12 @@
 ﻿using Windows.Graphics;
 
-namespace Note.Extensions
+namespace Note.Extensions;
+
+public static class PointInt32Extension
 {
-    public static class PointInt32Extension
+    public static void Deconstruct(this PointInt32 Point, out int X, out int Y)
     {
-        public static void Deconstruct(this PointInt32 Point, out int X, out int Y)
-        {
-            X = Point.X;
-            Y = Point.Y;
-        }
+        X = Point.X;
+        Y = Point.Y;
     }
 }

@@ -4,26 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Note"
     xmlns:controls="using:Note.Controls"
+    xmlns:component="using:Note.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Border BorderThickness="1" BorderBrush="#1b4a90">
+    <Border BorderThickness="1" BorderBrush="{ThemeResource Border}">
         <Grid RowDefinitions="Auto,Auto,*">
-            <Grid HorizontalAlignment="Stretch" Height="0.5" Name="FakeTitleBar"/>
-            <Grid ColumnDefinitions="Auto,*" 
-              PointerPressed="TitleBar_PointerPressed" 
-              PointerReleased="TitleBar_PointerReleased" 
-              PointerMoved="TitleBar_PointerMoved" 
-              Background="Transparent">
-                <controls:Menu x:Name="_menu"/>
-                <controls:WindowCaptionButtons Grid.Column="1" VerticalAlignment="Stretch"/>
-            </Grid>
-            <controls:TabBar x:Name="_tabs" Grid.Row="1" VerticalAlignment="Stretch">
-                <controls:TabBar.Resources>
-                    <SolidColorBrush x:Key="TabViewItemIconForeground" Color="#B1B1B1" />
-                    <SolidColorBrush x:Key="TabViewItemHeaderForeground" Color="#B1B1B1" />
-                </controls:TabBar.Resources>
-            </controls:TabBar>
+            <Grid HorizontalAlignment="Stretch" Height="0.5" Name="FakeTitleBar" Background="Transparent"/>
+            <component:TitleBar/>
+            <controls:TabBar x:Name="_tabs" Grid.Row="3"/>
         </Grid>
     </Border>
 </Window>

@@ -1,21 +1,20 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using System;
+﻿using System;
+using Microsoft.UI.Xaml.Controls;
 
-namespace Note.Utilities
+namespace Note.Utilities;
+
+internal class Debug
 {
-    internal class Debug
+    public static async void DisplayDialog(string Content, string Title = "Debug")
     {
-        public static async void DisplayDialog(string Content)
+        var Dialog = new ContentDialog
         {
-            var Dialog = new ContentDialog
-            {
-                Title = "Debug",
-                Content = Content,
-                CloseButtonText = "Ok",
-                XamlRoot = App.Main.Root
-            };
+            Title = Title,
+            Content = Content,
+            CloseButtonText = "Ok",
+            XamlRoot = MainWindow.Current.Root
+        };
 
-            await Dialog.ShowAsync();
-        }
+        await Dialog.ShowAsync();
     }
 }
