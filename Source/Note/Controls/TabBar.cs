@@ -1,6 +1,11 @@
-﻿using Microsoft.UI.Xaml;
+﻿using System.Threading.Tasks;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Note.Extensions;
+using Note.Utilities;
+using Windows.Storage;
+using System.Linq;
+using System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -19,33 +24,79 @@ public sealed class TabBar : TabView
     {
         NewTab();
 
-        AddTabButtonClick += (sender, _) => ((TabBar)sender).NewTab();
-        TabCloseRequested += (sender, args) => ((TabBar)sender).RemoveTab(args.Tab);
+        AddTabButtonClick += (sender, args) => ((TabBar)sender).NewTab();
+        TabCloseRequested += async (sender, args) => await ((TabBar)sender).Close(args.Tab);
     }
 
-    public void NewTab(string Header = "New Document")
+    public TabViewItem NewTab(string Header = "New Document")
     {
-        var NewTab = new TabViewItem { Header = $" {Header}" };
-        NewTab.Content = new TextEditor() { Parent = NewTab };
+        var Tab = new TabViewItem
+        {
+            Header = Header,
+        };
+        Tab.Content = new TextEditor()
+        {
+            Parent = Tab,
+        };
 
-        TabItems.Add(NewTab);
+        TabItems.Add(Tab);
         SelectedIndex = TabItems.Count - 1;
+
+        return Tab;
     }
 
-    public void RemoveTab(TabViewItem Tab)
+    public async Task Close(TabViewItem Tab, bool? Save = null)
+    {
+        if(Tab.GetTextEditor().IsModified == false)
+        {
+            Remove(Tab);
+            return;
+        }
+
+        if(Save is null)
+        {
+            var Action = await Popup.Display("Save", $"Save file {Tab.Header}?", "Save", "Don't Save");
+
+            Save = Action switch
+            {
+                ContentDialogResult.Primary => true,
+                ContentDialogResult.Secondary => false,
+                _ => null
+            };
+
+            if (Save is null) return;
+        }
+
+        if (Save is false)
+        {
+            Remove(Tab);
+            return;
+        }
+
+        await FilePicker.Save(this, SelectedTab);
+    }
+    private void Remove(TabViewItem Tab)
     {
         TabItems.Remove(Tab);
         if (TabItems.Count == 0) Application.Current.Exit();
     }
 
-    public int FindTab(string FilePath)
-    {
-        for (int i = 0; i < TabItems.Count; i++)
-        {
-            var Tab = (TabViewItem)TabItems[i];
-            if (Tab.GetFilePath() == FilePath) return i;
-        }
+    public object Find(string Name) => TabItems.ToList().SingleOrDefault(Tab => ((TabViewItem)Tab).Name == Name, null);
 
-        return -1;
+    public bool Navigate(string Name)
+    {
+        try
+        {
+            var Tab = Find(Name);
+
+            if (Tab is null) return false;
+
+            SelectedItem = Tab;
+        }
+        catch (Exception e)
+        {
+            Popup.Display("Error", $"2 or more tab open same file ({e.Message})");
+        }
+        return true;
     }
 }

@@ -26,11 +26,15 @@ public sealed partial class Menu : UserControl
 
     //private void Paste( object sender, RoutedEventArgs e ) => Tabs.SelectedTab.GetTextEditor().Paste();
 
-    private void OpenFile(object sender, RoutedEventArgs e) => FileManager.Open(Tabs);
+    private async void OpenFile(object sender, RoutedEventArgs e) => await FilePicker.Open(Tabs);
 
-    private void SaveFile(object sender, RoutedEventArgs e) => FileManager.Save(Tabs.SelectedTab);
+    private async void SaveFile(object sender, RoutedEventArgs e) => await FilePicker.Save(Tabs, Tabs.SelectedTab);
 
-    private void SaveFileAs(object sender, RoutedEventArgs e) => FileManager.SaveAs(Tabs.SelectedTab);
+    private async void SaveFileAs(object sender, RoutedEventArgs e) => await FilePicker.SaveAs(Tabs, Tabs.SelectedTab);
 
-    private void Exit(object sender, RoutedEventArgs e) => Application.Current.Exit();
+    //private void Exit(object sender, RoutedEventArgs e) => Application.Current.Exit();
+
+    private async void Exit(object sender, RoutedEventArgs e) => await FilePicker.CloseAll(Tabs);
+
+    private async void SaveAllFile(object sender, RoutedEventArgs e) => await FilePicker.SaveAll(Tabs);
 }

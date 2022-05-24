@@ -8,11 +8,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Border BorderThickness="1" BorderBrush="{ThemeResource Border}">
-        <Grid RowDefinitions="Auto,Auto,*">
-            <Grid HorizontalAlignment="Stretch" Height="0.5" Name="FakeTitleBar" Background="Transparent"/>
-            <component:TitleBar/>
-            <controls:TabBar x:Name="_tabs" Grid.Row="3"/>
+    
+    <Border BorderThickness="1" BorderBrush="{ThemeResource Border}" Background="{ThemeResource Background}">
+        <Grid RowDefinitions="Auto,*">
+            <Grid ColumnDefinitions="Auto,*">
+                <component:Menu/>
+                <Grid Grid.Column="1" x:Name="_titleBar"/>
+            </Grid>
+            <controls:TabBar x:Name="_tabs" Grid.Row="2" BorderThickness="0 2 0 0" BorderBrush="{ThemeResource TabViewItemHeaderBackgroundSelected}"/>
         </Grid>
     </Border>
 </Window>

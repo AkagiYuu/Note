@@ -13,11 +13,8 @@
 	<WindowsPackageType>None</WindowsPackageType>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Components\TitleBar\TitleBar.xaml" />
-    <None Remove="Components\TitleBar\WindowCaptionButtons.xaml" />
     <None Remove="Resources\RichEditBox.xaml" />
     <None Remove="Resources\Theme.xaml" />
-    <None Remove="Resources\TitleBarButton.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +30,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0-preview3" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
-    <PackageReference Include="PInvoke.User32" Version="0.7.104" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -51,27 +47,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Components\TitleBar\TitleBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Resources\TitleBarButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="Resources\RichEditBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Resources\WindowCaptionButton.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Components\TitleBar\WindowCaptionButtons.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -32,7 +32,15 @@
                     <KeyboardAccelerator Key="S" Modifiers="Control,Shift"/>
                 </MenuFlyoutItem.KeyboardAccelerators>
             </MenuFlyoutItem>
-            <MenuFlyoutSeparator />
+            <MenuFlyoutItem Text="Save All" Click="SaveAllFile">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA35;" />
+                </MenuFlyoutItem.Icon>
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="S" Modifiers="Control"/>
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutSeparator/>
             <MenuFlyoutItem Text="Exit" Click="Exit">
                 <MenuFlyoutItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE106;" />

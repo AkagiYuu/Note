@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Text;
+﻿using System.Diagnostics;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -9,6 +10,8 @@ namespace Note.Controls;
 
 public sealed class TextEditor : RichEditBox
 {
+    public static readonly FontIconSource ModifiedIcon = new() { Glyph = "\xE915" };
+
     public string Text
     {
         get
@@ -20,25 +23,39 @@ public sealed class TextEditor : RichEditBox
         set => Document.SetText(TextSetOptions.None, value);
     }
 
+    private bool _isModified;
+
     public bool IsModified
     {
-        get;
-        set;
+        get => _isModified;
+        set 
+        {
+            if (_isModified == value) return;
+
+            _isModified = value;
+            Parent.IconSource = _isModified? ModifiedIcon : null;
+        }
     }
 
     public new TabViewItem Parent { get; set; }
 
-    public TextEditor() => Style = (Style)Application.Current.Resources["RichEditBoxStyle"];
+    public TextEditor()
+    { 
+        Style = (Style)Application.Current.Resources["RichEditBoxStyle"];
+        
+        Loaded += Initialize;
+    }
+
+    private void Initialize(object sender, RoutedEventArgs e)
+    {
+        TextChanging += (sender, args) => IsModified = true;
+        Loaded -= Initialize;
+    }
+
 
     public void Undo() => TextDocument.Undo();
 
     public void Cut() => TextDocument.Selection.Cut();
 
     public void Copy() => TextDocument.Selection.Copy();
-
-    //public void Paste( this TabViewItem Tab, int format = 0 )
-    //    => Tab.GetTextEditor()
-    //          .TextDocument
-    //          .Selection
-    //          .Paste(format);
 }
