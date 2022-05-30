@@ -3,18 +3,22 @@
   "type": "object",
   "properties": {
     "Border": {
-      "type": "string"
+      "default": "#",
+      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+      "type": "string",
+      "format": "color"
     },
     "Background": {
-      "type": "string"
+      "default": "#",
+      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+      "type": "string",
+      "format": "color"
     },
     "SelectedTabHeaderForeground": {
-      "type": "string"
+      "default": "#",
+      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+      "type": "string",
+      "format": "color"
     }
-  },
-  "required": [
-    "Border",
-    "Background",
-    "SelectedTabHeaderForeground"
-  ]
+  }
 }
