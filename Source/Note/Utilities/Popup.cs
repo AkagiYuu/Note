@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Controls;
 
 namespace Note.Utilities;
+
 internal class Popup
 {
     public static async void Display(string Title, string Content, string CloseButtonText = "OK")
@@ -22,6 +20,7 @@ internal class Popup
 
         await Dialog.ShowAsync();
     }
+
     public static async Task<ContentDialogResult> Display(string Title, string Content, string PrimaryButtonText, string SecondaryButtonText, string CloseButtonText = "Close", ContentDialogButton DefaultButton = ContentDialogButton.Primary)
     {
         var Dialog = new ContentDialog

@@ -1,23 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Note.Extensions;
-using Windows.UI;
 
 namespace Note.Utilities;
 
 public static class Setting
 {
     public static readonly string AppSettingFolder = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Note";
-    
+
     public static SolidColorBrush Border
     {
         get => (SolidColorBrush)Application.Current.Resources["Border"];
@@ -36,18 +28,30 @@ public static class Setting
         set => Application.Current.Resources["TabViewItemHeaderForegroundSelected"] = value;
     }
 
-    public static void LoadUserConfig()
+    public static async void LoadUserConfig()
     {
-        var Options = JsonSerializer.Deserialize<Option>(System.IO.File.ReadAllText($@"{AppSettingFolder}\Config.json"));
+        var SettingFile = $@"{AppSettingFolder}\Config.json";
+
+        if (!System.IO.File.Exists(SettingFile))
+            return;
+
+        var json = await File.Open(SettingFile);
+        var Options = JsonSerializer.Deserialize<Option>(json);
         Setting.ChangeOption(Options);
     }
 
     public static void ChangeOption(Option Options) => ChangeColorScheme(Options.Scheme);
-    
+
     public static void ChangeColorScheme(ColorScheme Scheme)
     {
-        Border = new SolidColorBrush(Scheme.Border.ToColor());
-        Background = new SolidColorBrush(Scheme.Background.ToColor());
-        SelectedTabHeaderForeground = new SolidColorBrush(Scheme.SelectedTabHeaderForeground.ToColor());
+        if (Scheme is null)
+            return;
+
+        if (Scheme.Border.IsValidHexColor())
+            Border = new SolidColorBrush(Scheme.Border.ToColor());
+        if (Scheme.Background.IsValidHexColor())
+            Background = new SolidColorBrush(Scheme.Background.ToColor());
+        if (Scheme.SelectedTabHeaderForeground.IsValidHexColor())
+            SelectedTabHeaderForeground = new SolidColorBrush(Scheme.SelectedTabHeaderForeground.ToColor());
     }
 }

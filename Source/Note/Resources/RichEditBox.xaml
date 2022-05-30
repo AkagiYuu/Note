@@ -6,7 +6,7 @@
         <Setter Property="TextWrapping" Value="NoWrap" />
         <!--<Setter Property="FlyoutBase.">
             <Setter.Value>
-                <MenuFlyoutItem Text="Share" >
+                <MenuFlyoutItem Text="Share">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE72D;" />
                     </MenuFlyoutItem.Icon>
@@ -48,13 +48,13 @@
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Normal" />
-                                <VisualState x:Name="PointerOver"/>
-                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="PointerOver" />
+                                <VisualState x:Name="Focused" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Border x:Name="BackgroundElement"
                                         Grid.Row="1"
@@ -62,7 +62,7 @@
                                         Margin="{TemplateBinding BorderThickness}"
                                         Opacity="{ThemeResource TextControlBackgroundRestOpacity}"
                                         Grid.ColumnSpan="2"
-                                        Grid.RowSpan="1"/>
+                                        Grid.RowSpan="1" />
                         <ContentPresenter x:Name="HeaderContentPresenter"
                                                   x:DeferLoadStrategy="Lazy"
                                                   Visibility="Collapsed"
@@ -75,7 +75,7 @@
                         <ScrollViewer x:Name="ContentElement"
                                               Grid.Row="1"
                                               HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
-                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"                               
+                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                                       VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
                                               VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
                                               IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
@@ -85,7 +85,7 @@
                                               Padding="{TemplateBinding Padding}"
                                               IsTabStop="False"
                                               ZoomMode="Disabled"
-                                              AutomationProperties.AccessibilityView="Raw"/>
+                                              AutomationProperties.AccessibilityView="Raw" />
                         <ContentControl x:Name="PlaceholderTextContentPresenter"
                                                Grid.Row="1"
                                                Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
@@ -94,7 +94,7 @@
                                                IsTabStop="False"
                                                Grid.ColumnSpan="2"
                                                Content="{TemplateBinding PlaceholderText}"
-                                               IsHitTestVisible="False"/>
+                                               IsHitTestVisible="False" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

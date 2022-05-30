@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using Windows.UI;
 
 namespace Note.Extensions;
+
 public static class ColorExtensions
 {
+    private static readonly Regex HexColorCheck = new("^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$", RegexOptions.Compiled);
+
+    public static bool IsValidHexColor(this string ColorString) => !string.IsNullOrEmpty(ColorString) && HexColorCheck.IsMatch(ColorString);
+
     private static Color HexToColor(ReadOnlySpan<char> Hex)
     {
         var cuint = int.Parse(Hex, NumberStyles.HexNumber);
@@ -54,6 +56,7 @@ public static class ColorExtensions
         }
         return Color.FromArgb(a, r, g, b);
     }
+
     public static Color ToColor(this string ColorString)
     {
         if (string.IsNullOrEmpty(ColorString))

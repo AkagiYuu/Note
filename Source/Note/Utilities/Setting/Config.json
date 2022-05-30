@@ -1,29 +1,4 @@
-﻿//{
-//  "$schema": "http://json-schema.org/draft-04/schema#",
-//  "type": "object",
-//  "properties": {
-//    "Border": {
-//      "default": "#",
-//      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-//      "type": "string",
-//      "format": "color"
-//    },
-//    "Background": {
-//      "default": "#",
-//      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-//      "type": "string",
-//      "format": "color"
-//    },
-//    "SelectedTabHeaderForeground": {
-//      "default": "#",
-//      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-//      "type": "string",
-//      "format": "color"
-//    }
-//  }
-//}
-
-{
+﻿{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
@@ -31,27 +6,24 @@
       "type": "object",
       "properties": {
         "Border": {
-          "default": "#002536",
+          "default": "#F0F8FF",
+          "format": "color",
           "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-          "type": "string",
-          "format": "color"
+          "type": "string"
         },
         "Background": {
-          "default": "#002536",
+          "default": "#000000",
+          "format": "color",
           "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-          "type": "string",
-          "format": "color"
+          "type": "string"
         },
         "SelectedTabHeaderForeground": {
-          "default": "#002536",
+          "default": "#569CD6",
+          "format": "color",
           "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-          "type": "string",
-          "format": "color"
+          "type": "string"
         }
       }
     }
-  },
-  "required": [
-    "Scheme"
-  ]
+  }
 }

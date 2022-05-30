@@ -3,10 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
-            <!--<SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="#569cd6"/>-->
-            <SolidColorBrush x:Key="TabViewItemHeaderForegroundSelected" Color="#569cd6"/>
-            <SolidColorBrush x:Key="Border" Color="AliceBlue"/>
-            <SolidColorBrush x:Key="Background" Color="Black"/>
+            <!--<SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="#569cd6" />-->
+            <SolidColorBrush x:Key="TabViewItemHeaderForegroundSelected" Color="#569cd6" />
+            <SolidColorBrush x:Key="Border" Color="AliceBlue" />
+            <SolidColorBrush x:Key="Background" Color="Black" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

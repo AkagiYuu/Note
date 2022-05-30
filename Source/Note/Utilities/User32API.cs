@@ -10,6 +10,7 @@ public struct RectangleArea
     public int top;
     public int right;
     public int bottom;
+
     public RectangleArea(int Left, int Top, int Right, int Bottom)
     {
         left = Left;
@@ -115,7 +116,6 @@ public static class ExtendedWindowStyle
     /// </summary>
     public const int Composited = 0x02000000;
 
-
     /// <summary>
     /// A top-level window created with this style does not become the foreground window when the user clicks it. The system does not bring this window to the foreground when the user minimizes or closes the foreground window.
     /// </summary>
@@ -135,7 +135,6 @@ public static class LayeredWindowFlag
     public const uint Alpha = 0x00000002;
 }
 
-
 /// <summary>
 /// Note: this may effect performance
 /// </summary>
@@ -152,7 +151,6 @@ public static class User32API
     [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     public static extern IntPtr FindWindowEx(IntPtr ParentHandle, IntPtr ChildAfter, string ClassName, string WindowTitle);
 
-
     /// <summary>
     /// Retrieves the coordinates of a window's client area
     /// </summary>
@@ -161,7 +159,6 @@ public static class User32API
     /// <returns>Coordinates</returns>
     [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Auto)]
     public static extern bool GetClientRect(IntPtr hWnd, out RectangleArea Result);
-
 
     /// <summary>
     /// Retrieves the coordinates of a window area (includes the non-client area, i.e. the window borders, caption bar, ...)
@@ -172,10 +169,8 @@ public static class User32API
     [DllImport("User32.dll", SetLastError = true)]
     public static extern bool GetWindowRect(IntPtr hWnd, out RectangleArea Result);
 
-
     [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     public static extern bool SetLayeredWindowAttributes(IntPtr hWnd, uint ColorCode, byte Alpha, uint Flags);
-
 
     public static IntPtr SetWindowAttribute(IntPtr hWnd, int Attribute, IntPtr Value)
     {
@@ -192,7 +187,6 @@ public static class User32API
     [DllImport("User32.dll", CharSet = CharSet.Auto, EntryPoint = "SetWindowLongPtr")]
     internal static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int Attribute, IntPtr Value);
 
-
     public static long GetWindowAttribute(IntPtr hWnd, int Attribute)
     {
         if (IntPtr.Size == 4)
@@ -207,7 +201,6 @@ public static class User32API
 
     [DllImport("User32.dll", EntryPoint = "GetWindowLongPtr", CharSet = CharSet.Auto)]
     internal static extern long GetWindowLongPtr64(IntPtr hWnd, int Attribute);
-
 
     [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
     internal static extern bool GetCursorPos(out Windows.Graphics.PointInt32 Position);

@@ -1,22 +1,20 @@
 ﻿<Window
     x:Class="Note.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Note"
-    xmlns:controls="using:Note.Controls"
-    xmlns:component="using:Note.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:component="using:Note.Components"
+    xmlns:controls="using:Note.Controls"
     mc:Ignorable="d">
-    
+
     <Border BorderThickness="1" BorderBrush="{ThemeResource Border}" Background="{ThemeResource Background}">
         <Grid RowDefinitions="Auto,*">
             <Grid ColumnDefinitions="Auto,*">
-                <component:Menu/>
-                <Grid Grid.Column="1" x:Name="_titleBar"/>
+                <component:Menu />
+                <Grid Grid.Column="1" x:Name="_titleBar" />
             </Grid>
-            <controls:TabBar x:Name="_tabs" Grid.Row="2" BorderThickness="0 2 0 0" BorderBrush="{ThemeResource TabViewItemHeaderBackgroundSelected}"/>
+            <controls:TabBar x:Name="_tabs" Grid.Row="2" BorderThickness="0 2 0 0" BorderBrush="{ThemeResource TabViewItemHeaderBackgroundSelected}" />
         </Grid>
     </Border>
 </Window>
-

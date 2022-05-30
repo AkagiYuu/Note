@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Controls;
 using Note.Extensions;
@@ -56,7 +54,7 @@ public static class FilePicker
             var IsSucceed = Tabs.Navigate(file.Path);
             if (IsSucceed) return;
 
-            var Tab = Tabs.SelectedTab.IconSource is null? Tabs.SelectedTab : Tabs.NewTab();
+            var Tab = Tabs.SelectedTab.IconSource is null ? Tabs.SelectedTab : Tabs.NewTab();
             var TextEditor = Tab.GetTextEditor();
 
             TextEditor.Text = await File.Open(file);
@@ -79,7 +77,7 @@ public static class FilePicker
             if (file == null) return;
 
             var IsSucceed = Tabs.Navigate(file.Path);
-            if(IsSucceed)
+            if (IsSucceed)
             {
                 Popup.Display("Notify", "Consider closing this first");
                 return;
@@ -127,7 +125,7 @@ public static class FilePicker
     public static async Task SaveAll(TabBar Tabs)
     {
         var Items = Tabs.TabItems;
-        for(int i = 0; i < Items.Count; i++)
+        for (int i = 0; i < Items.Count; i++)
             await Save(Tabs, (TabViewItem)Items[i]);
     }
 }

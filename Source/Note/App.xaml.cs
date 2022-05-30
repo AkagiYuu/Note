@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.UI.Xaml;
-using Microsoft.Windows.AppLifecycle;
 using Note.Utilities;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -17,6 +15,7 @@ namespace Note
         private MainWindow _main;
 
         public string[] Arguments { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -41,6 +40,5 @@ namespace Note
             MainWindow.Current = _main;
             Setting.LoadUserConfig();
         }
-
     }
 }

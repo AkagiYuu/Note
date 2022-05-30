@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Note.Extensions;
 using Note.Utilities;
-using Windows.Storage;
-using System.Linq;
-using System;
-using Microsoft.UI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -80,7 +78,7 @@ public sealed class TabBar : TabView
             return;
         }
 
-        if(Save is null)
+        if (Save is null)
         {
             var Action = await Popup.Display("Save", $"Save file {Tab.Header}?", "Save", "Don't Save");
 
@@ -95,16 +93,16 @@ public sealed class TabBar : TabView
         }
 
         if (Save is true)
-            await FilePicker.Save(this, SelectedTab);
+            await FilePicker.Save(this, Tab);
 
         Remove(Tab);
     }
+
     private void Remove(TabViewItem Tab)
     {
         TabItems.Remove(Tab);
         if (TabItems.Count == 0) Application.Current.Exit();
     }
-
 
     public async Task CloseAll(bool Save = true)
     {

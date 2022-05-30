@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-using Microsoft.UI.Text;
+﻿using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,12 +27,12 @@ public sealed class TextEditor : RichEditBox
     public bool IsModified
     {
         get => _isModified;
-        set 
+        set
         {
             if (_isModified == value) return;
 
             _isModified = value;
-            Parent.IconSource = _isModified? ModifiedIcon : null;
+            Parent.IconSource = _isModified ? ModifiedIcon : null;
         }
     }
 
@@ -52,7 +50,7 @@ public sealed class TextEditor : RichEditBox
     //    CommandBarFlyout myFlyout = sender as CommandBarFlyout;
 
     //    myFlyout.SecondaryCommands.Add(
-    //        new AppBarButton() { 
+    //        new AppBarButton() {
     //            Label = "test",
     //            Flyout = new Flyout()
     //            {
@@ -62,7 +60,6 @@ public sealed class TextEditor : RichEditBox
     //    );
     //}
 
-
     private void Initialize(object sender, RoutedEventArgs e)
     {
         //ContextFlyout.Opening += Menu_Opening;
@@ -70,7 +67,6 @@ public sealed class TextEditor : RichEditBox
         TextChanging += (sender, args) => IsModified = true;
         Loaded -= Initialize;
     }
-
 
     public void Undo() => TextDocument.Undo();
 
