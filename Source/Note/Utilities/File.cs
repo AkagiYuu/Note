@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace Note.Utilities;
+
+public ref struct FileInfo
+{
+    public string FullName { get; }
+    public string Name => Path.GetFileName(FullName);
+
+    public FileInfo(string Path) => FullName = Path;
+}
 
 public static class File
 {

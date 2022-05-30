@@ -34,7 +34,7 @@ public sealed partial class Menu : UserControl
 
     //private void Exit(object sender, RoutedEventArgs e) => Application.Current.Exit();
 
-    private async void Exit(object sender, RoutedEventArgs e) => await FilePicker.CloseAll(Tabs);
+    private async void Exit(object sender, RoutedEventArgs e) => await Tabs.CloseAll();
 
     private async void SaveAllFile(object sender, RoutedEventArgs e) => await FilePicker.SaveAll(Tabs);
 }

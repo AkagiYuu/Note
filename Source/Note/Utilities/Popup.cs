@@ -9,7 +9,7 @@ using Microsoft.UI.Xaml.Controls;
 namespace Note.Utilities;
 internal class Popup
 {
-    public static async Task Display(string Title, string Content, string CloseButtonText = "OK")
+    public static async void Display(string Title, string Content, string CloseButtonText = "OK")
     {
         var Dialog = new ContentDialog
         {

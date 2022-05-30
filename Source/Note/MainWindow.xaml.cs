@@ -9,6 +9,10 @@ using static Note.Utilities.User32API;
 using Microsoft.UI.Composition.SystemBackdrops;
 using System.Linq;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
+using Windows.UI;
+using Note.Extensions;
+using System.Text.Json;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,6 +30,7 @@ public sealed partial class MainWindow : Window
     public AppWindow AppWindow => _appWindow;
 
     private readonly OverlappedPresenter _presenter;
+    public OverlappedPresenter Presenter => _presenter;
 
     public TabBar Tabs => _tabs;
 
@@ -40,9 +45,14 @@ public sealed partial class MainWindow : Window
         var Id = Win32Interop.GetWindowIdFromWindow(_hWnd);
         _appWindow = AppWindow.GetFromWindowId(Id);
         _presenter = _appWindow.Presenter as OverlappedPresenter;
+        _appWindow.Title = "Note";
 
         SetTitleBar();
         InitializeTransparency();
+
+        //var HomeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        //var Options = JsonSerializer.Deserialize<Option>(System.IO.File.ReadAllText($@"{HomeDirectory}\Note\Config.json"));
+        //Setting.LoadConfig(Options);
 
         _appWindow.Closing += OnClosing;
     }
@@ -75,7 +85,7 @@ public sealed partial class MainWindow : Window
 
         if (Save is null) return;
 
-        await FilePicker.CloseAll(_tabs);
+        await _tabs.CloseAll((bool)Save);
     }
 
     private void SetTitleBar()

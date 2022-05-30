@@ -1,0 +1,20 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Border": {
+      "type": "string"
+    },
+    "Background": {
+      "type": "string"
+    },
+    "SelectedTabHeaderForeground": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Border",
+    "Background",
+    "SelectedTabHeaderForeground"
+  ]
+}

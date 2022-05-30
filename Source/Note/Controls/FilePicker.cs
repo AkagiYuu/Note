@@ -67,7 +67,7 @@ public static class FilePicker
         catch (Exception e)
         {
             var Message = $"Can't open the file (Exception: {e.Message})";
-            await Popup.Display("Error", Message);
+            Popup.Display("Error", Message);
         }
     }
 
@@ -81,7 +81,7 @@ public static class FilePicker
             var IsSucceed = Tabs.Navigate(file.Path);
             if(IsSucceed)
             {
-                await Popup.Display("Notify", "Consider closing this first");
+                Popup.Display("Notify", "Consider closing this first");
                 return;
             }
 
@@ -95,7 +95,7 @@ public static class FilePicker
         catch (Exception e)
         {
             var Message = $"Can't save file (Exception: {e.Message})";
-            await Popup.Display("Error", Message);
+            Popup.Display("Error", Message);
         }
     }
 
@@ -105,9 +105,9 @@ public static class FilePicker
         {
             var Path = Tab.Name;
 
-            if (Path == string.Empty)
+            if (Path is "")
             {
-                await SaveAs(Tabs, Tab);
+                SaveAs(Tabs, Tab);
                 return;
             }
 
@@ -120,7 +120,7 @@ public static class FilePicker
         catch (Exception e)
         {
             var Message = $"Can't save file (Exception: {e.Message})";
-            await Popup.Display("Error", Message);
+            Popup.Display("Error", Message);
         }
     }
 
@@ -129,13 +129,5 @@ public static class FilePicker
         var Items = Tabs.TabItems;
         for(int i = 0; i < Items.Count; i++)
             await Save(Tabs, (TabViewItem)Items[i]);
-    }
-
-    public static async Task CloseAll(TabBar Tabs, bool Save = true)
-    {
-        while(Tabs.TabItems.Count > 0)
-        {
-            await Tabs.Close(Tabs.SelectedTab, Save);
-        }
     }
 }

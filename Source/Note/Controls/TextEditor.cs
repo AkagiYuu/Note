@@ -2,6 +2,7 @@
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -40,14 +41,32 @@ public sealed class TextEditor : RichEditBox
     public new TabViewItem Parent { get; set; }
 
     public TextEditor()
-    { 
+    {
+        //DefaultStyleKey = typeof(TextEditor);
         Style = (Style)Application.Current.Resources["RichEditBoxStyle"];
-        
         Loaded += Initialize;
     }
 
+    //private void Menu_Opening(object sender, object e)
+    //{
+    //    CommandBarFlyout myFlyout = sender as CommandBarFlyout;
+
+    //    myFlyout.SecondaryCommands.Add(
+    //        new AppBarButton() { 
+    //            Label = "test",
+    //            Flyout = new Flyout()
+    //            {
+    //                Content = new ColorPicker()
+    //            }
+    //        }
+    //    );
+    //}
+
+
     private void Initialize(object sender, RoutedEventArgs e)
     {
+        //ContextFlyout.Opening += Menu_Opening;
+        //SelectionFlyout.Opening += Menu_Opening;
         TextChanging += (sender, args) => IsModified = true;
         Loaded -= Initialize;
     }

@@ -21,6 +21,13 @@
         <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
         <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="Padding" Value="{ThemeResource TextControlThemePadding}"/>
+        <!--<Setter Property="ContextFlyout">
+            <Setter.Value>
+                <Flyout>
+                    <TextBlock>Text</TextBlock>
+                </Flyout>
+            </Setter.Value>
+        </Setter>-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local2:TextEditor">

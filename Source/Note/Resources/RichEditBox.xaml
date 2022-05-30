@@ -4,6 +4,15 @@
 
     <Style TargetType="RichEditBox" x:Key="RichEditBoxStyle">
         <Setter Property="TextWrapping" Value="NoWrap" />
+        <!--<Setter Property="FlyoutBase.">
+            <Setter.Value>
+                <MenuFlyoutItem Text="Share" >
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE72D;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </Setter.Value>
+        </Setter>-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RichEditBox">

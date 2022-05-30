@@ -1,4 +1,7 @@
-﻿using Microsoft.UI.Xaml;
+﻿using System;
+using System.Linq;
+using Microsoft.UI.Xaml;
+using Microsoft.Windows.AppLifecycle;
 using Note.Utilities;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -13,6 +16,7 @@ namespace Note
     {
         private MainWindow _main;
 
+        public string[] Arguments { get; set; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -31,6 +35,7 @@ namespace Note
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            Arguments = Environment.GetCommandLineArgs();
             _main = new MainWindow();
             _main.Activate();
             MainWindow.Current = _main;
