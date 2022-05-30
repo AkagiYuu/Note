@@ -1,24 +1,57 @@
-﻿{
+﻿//{
+//  "$schema": "http://json-schema.org/draft-04/schema#",
+//  "type": "object",
+//  "properties": {
+//    "Border": {
+//      "default": "#",
+//      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+//      "type": "string",
+//      "format": "color"
+//    },
+//    "Background": {
+//      "default": "#",
+//      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+//      "type": "string",
+//      "format": "color"
+//    },
+//    "SelectedTabHeaderForeground": {
+//      "default": "#",
+//      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+//      "type": "string",
+//      "format": "color"
+//    }
+//  }
+//}
+
+{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "Border": {
-      "default": "#",
-      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-      "type": "string",
-      "format": "color"
-    },
-    "Background": {
-      "default": "#",
-      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-      "type": "string",
-      "format": "color"
-    },
-    "SelectedTabHeaderForeground": {
-      "default": "#",
-      "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
-      "type": "string",
-      "format": "color"
+    "Scheme": {
+      "type": "object",
+      "properties": {
+        "Border": {
+          "default": "#002536",
+          "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+          "type": "string",
+          "format": "color"
+        },
+        "Background": {
+          "default": "#002536",
+          "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+          "type": "string",
+          "format": "color"
+        },
+        "SelectedTabHeaderForeground": {
+          "default": "#002536",
+          "pattern": "^#[A-Fa-f0-9]{3}(?:[A-Fa-f0-9]{3})?$",
+          "type": "string",
+          "format": "color"
+        }
+      }
     }
-  }
+  },
+  "required": [
+    "Scheme"
+  ]
 }

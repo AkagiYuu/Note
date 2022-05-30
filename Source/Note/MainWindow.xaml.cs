@@ -50,10 +50,6 @@ public sealed partial class MainWindow : Window
         SetTitleBar();
         InitializeTransparency();
 
-        //var HomeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        //var Options = JsonSerializer.Deserialize<Option>(System.IO.File.ReadAllText($@"{HomeDirectory}\Note\Config.json"));
-        //Setting.LoadConfig(Options);
-
         _appWindow.Closing += OnClosing;
     }
 

@@ -39,6 +39,7 @@ namespace Note
             _main = new MainWindow();
             _main.Activate();
             MainWindow.Current = _main;
+            Setting.LoadUserConfig();
         }
 
     }
